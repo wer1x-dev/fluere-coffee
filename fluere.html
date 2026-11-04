@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QARA — спешелти-кофейня и обжарка в Алматы</title>
+<meta name="description" content="QARA — кофейня и собственная обжарка в Алматы. Спешелти-кофе, свежие лоты, завтраки и выпечка. Достык 132, ежедневно с 07:30." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#141110',
+          cream: '#F4EEE4',
+          paper: '#FBF6EF',
+          clay: '#B2522E',
+          olive: '#6C7A5A',
+          gold: '#C6A15B'
+        },
+        fontFamily: {
+          display: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  :root{
+    --ink:#141110; --cream:#F4EEE4; --paper:#FBF6EF; --clay:#B2522E; --olive:#6C7A5A; --gold:#C6A15B;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.is-locked{overflow:hidden}
+  ::selection{background:rgba(178,82,46,.22)}
+  section[id]{scroll-margin-top:88px}
+  img{background:linear-gradient(135deg,#3b2c24,#1b1512)}
+  .img-missing{visibility:hidden}
+  .tabular{font-variant-numeric:tabular-nums}
+
+  /* ---------- фактура ---------- */
+  .grain{
+    position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.035;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- типографика ---------- */
+  .eyebrow{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;color:rgba(20,17,16,.45)}
+  .eyebrow-light{color:rgba(244,238,228,.5)}
+  .display{font-family:'Fraunces',Georgia,serif;font-weight:400;letter-spacing:-.025em;line-height:.98}
+  .display em{font-style:italic;color:var(--clay)}
+  .display-light em{color:var(--gold)}
+
+  /* ---------- кнопки ---------- */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;height:52px;padding:0 26px;border-radius:999px;font-size:13.5px;font-weight:500;letter-spacing:.005em;white-space:nowrap;transition:transform .35s var(--ease),color .35s ease,border-color .35s ease,background-size .55s var(--ease),background-color .35s ease;background-repeat:no-repeat;background-position:center bottom;background-size:100% 0%;will-change:background-size}
+  .btn svg{transition:transform .45s var(--ease)}
+  .btn:hover{transform:translateY(-2px);background-size:100% 100%}
+  .btn:hover svg{transform:translate(3px,-3px)}
+  .btn-cream{background-color:var(--cream);color:var(--ink);background-image:linear-gradient(var(--gold),var(--gold))}
+  .btn-dark{background-color:var(--ink);color:var(--cream);background-image:linear-gradient(var(--clay),var(--clay))}
+  .btn-outline{background-color:transparent;color:var(--cream);border:1px solid rgba(244,238,228,.28);background-image:linear-gradient(rgba(244,238,228,.1),rgba(244,238,228,.1))}
+  .btn-outline:hover{border-color:rgba(244,238,228,.55)}
+  .btn-outline-dark{background-color:transparent;color:var(--ink);border:1px solid rgba(20,17,16,.22);background-image:linear-gradient(rgba(20,17,16,.06),rgba(20,17,16,.06))}
+  .btn-sm{height:42px;padding:0 18px;font-size:12px}
+
+  .link-underline{position:relative;display:inline-flex;align-items:center;gap:.4rem}
+  .link-underline::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+  .link-underline:hover::after{transform:scaleX(1)}
+
+  .nav-link{position:relative;padding:4px 0;font-size:12.5px;letter-spacing:.04em;color:rgba(244,238,228,.72);transition:color .3s}
+  .nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+  .nav-link:hover{color:#F4EEE4}
+  .nav-link:hover::after{transform:scaleX(1)}
+
+  /* ---------- шапка ---------- */
+  .site-header{position:fixed;top:0;left:0;right:0;z-index:70;color:var(--cream);transition:background .45s ease,backdrop-filter .45s ease,border-color .45s ease}
+  .site-header.is-stuck{background:rgba(20,17,16,.82);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);border-bottom:1px solid rgba(244,238,228,.09)}
+  .cart-badge{position:absolute;top:-2px;right:-2px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--gold);color:#141110;font-size:9px;font-weight:600;line-height:17px;text-align:center;display:none}
+  .cart-badge.is-on{display:block}
+
+  /* ---------- меню-оверлей ---------- */
+  .mobile-menu{position:fixed;inset:0;z-index:80;background:var(--ink);color:var(--cream);clip-path:inset(0 0 100% 0);transition:clip-path .7s var(--ease);pointer-events:none}
+  .mobile-menu.is-open{clip-path:inset(0 0 0 0);pointer-events:auto}
+  .mobile-menu a{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .6s var(--ease)}
+  .mobile-menu.is-open a{opacity:1;transform:none}
+
+  /* ---------- reveal ---------- */
+  [data-reveal]{opacity:0;transform:translateY(34px);filter:blur(10px);transition:opacity 1.05s var(--ease),transform 1.05s var(--ease),filter 1.05s var(--ease);transition-delay:var(--d,0ms)}
+  [data-reveal="left"]{transform:translateX(-34px)}
+  [data-reveal="right"]{transform:translateX(34px)}
+  [data-reveal="scale"]{transform:scale(.94)}
+  [data-reveal].is-in{opacity:1;transform:none;filter:blur(0)}
+
+  .img-reveal{overflow:hidden}
+  .img-reveal img{transform:scale(1.14);transition:transform 1.6s var(--ease)}
+  .img-reveal.is-in img{transform:scale(1)}
+  .zoom img{transition:transform 1.3s var(--ease),filter .8s ease}
+  .zoom:hover img{transform:scale(1.07)}
+
+  /* ---------- параллакс ---------- */
+  .parallax{position:absolute;inset:0;overflow:hidden}
+  .parallax img{height:122%;width:100%;object-fit:cover;will-change:transform}
+
+  /* ---------- цветы ---------- */
+  .bloom{position:absolute;pointer-events:none;color:rgba(244,238,228,.55);animation:drift 16s ease-in-out infinite alternate;will-change:transform}
+  .bloom--gold{color:rgba(198,161,91,.5)}
+  .bloom--clay{color:rgba(178,82,46,.45)}
+  @keyframes drift{
+    0%{transform:translate3d(0,0,0) rotate(0deg)}
+    50%{transform:translate3d(8px,-18px,0) rotate(6deg)}
+    100%{transform:translate3d(-6px,-30px,0) rotate(-4deg)}
+  }
+  @keyframes sway{
+    0%{transform:rotate(-4deg)}
+    100%{transform:rotate(4deg)}
+  }
+
+  /* ---------- бегущая строка ---------- */
+  .marquee{overflow:hidden;white-space:nowrap}
+  .marquee-track{display:inline-flex;align-items:center;gap:2.5rem;animation:marquee 42s linear infinite;will-change:transform}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* ---------- табы меню ---------- */
+  .tab{position:relative;padding:10px 2px;font-size:13px;color:rgba(20,17,16,.5);transition:color .3s}
+  .tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+  .tab:hover{color:var(--ink)}
+  .tab.is-active{color:var(--ink)}
+  .tab.is-active::after{transform:scaleX(1)}
+
+  #menuPanel{transition:opacity .35s ease,transform .45s var(--ease)}
+  #menuPanel.is-out{opacity:0;transform:translateY(10px)}
+
+  /* ---------- корзина ---------- */
+  .scrim{position:fixed;inset:0;z-index:85;background:rgba(20,17,16,.55);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .45s ease}
+  .scrim.is-open{opacity:1;pointer-events:auto}
+  .cart{position:fixed;top:0;right:0;bottom:0;z-index:90;width:min(440px,100%);background:var(--paper);display:flex;flex-direction:column;transform:translateX(102%);transition:transform .65s var(--ease)}
+  .cart.is-open{transform:none}
+  .cart-item{display:flex;gap:14px;padding:18px 0;border-bottom:1px solid rgba(20,17,16,.1)}
+  .qty{display:inline-flex;align-items:center;border:1px solid rgba(20,17,16,.16);border-radius:999px}
+  .qty button{width:26px;height:26px;display:grid;place-items:center;border-radius:999px;color:rgba(20,17,16,.6);transition:background .2s,color .2s}
+  .qty button:hover{background:rgba(20,17,16,.07);color:var(--ink)}
+
+  /* ---------- модалка ---------- */
+  .modal{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .modal.is-open{opacity:1;pointer-events:auto}
+  .modal-panel{transform:translateY(26px) scale(.985);transition:transform .55s var(--ease)}
+  .modal.is-open .modal-panel{transform:none}
+
+  /* ---------- лайтбокс ---------- */
+  .lightbox{position:fixed;inset:0;z-index:97;display:grid;place-items:center;background:rgba(12,10,9,.94);opacity:0;pointer-events:none;transition:opacity .4s ease}
+  .lightbox.is-open{opacity:1;pointer-events:auto}
+  .lightbox img{max-height:82vh;width:auto;max-width:92vw;transform:scale(.97);transition:transform .55s var(--ease)}
+  .lightbox.is-open img{transform:scale(1)}
+
+  /* ---------- тосты ---------- */
+  .toast{display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:14px;background:var(--ink);color:var(--cream);font-size:12.5px;box-shadow:0 20px 44px -22px rgba(0,0,0,.6);animation:toastIn .45s var(--ease)}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- формы ---------- */
+  .field{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(20,17,16,.18);padding:12px 0;font-size:14px;color:var(--ink);transition:border-color .3s}
+  .field:focus{outline:none;border-color:var(--clay)}
+  .field::placeholder{color:rgba(20,17,16,.35)}
+
+  /* ---------- прочее ---------- */
+  .hairline{height:1px;background:rgba(20,17,16,.12)}
+  .hairline-light{height:1px;background:rgba(244,238,228,.14)}
+  .menu-row{transition:background-size .5s var(--ease);background-image:linear-gradient(rgba(178,82,46,.06),rgba(178,82,46,.06));background-repeat:no-repeat;background-size:0% 100%;background-position:left center;border-radius:2px}
+  .menu-row:hover{background-size:100% 100%}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    [data-reveal]{opacity:1!important;transform:none!important;filter:none!important}
+    .img-reveal img{transform:none!important}
+    .bloom{animation:none!important}
+  }
+</style>
+</head>
+
+<body class="bg-cream text-ink antialiased">
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16"/><path d="m13 5 7 7-7 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.6l2.6 5.6 6.1.8-4.5 4.3 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9l6.1-.8L12 2.6Z"/></symbol>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader" class="site-header">
+  <div class="mx-auto flex h-[76px] w-full max-w-[1320px] items-center justify-between gap-6 px-5 md:px-8">
+    <a href="#top" class="flex items-baseline gap-2">
+      <span class="font-display text-[26px] leading-none tracking-[.08em]">QARA</span>
+      <span class="hidden text-[9px] uppercase tracking-[.24em] text-current/50 sm:inline">coffee &amp; bakery</span>
+    </a>
+
+    <nav class="hidden items-center gap-9 lg:flex">
+      <a href="#menu" class="nav-link">Меню</a>
+      <a href="#roastery" class="nav-link">Обжарка</a>
+      <a href="#shop" class="nav-link">Магазин</a>
+      <a href="#gallery" class="nav-link">Пространство</a>
+      <a href="#visit" class="nav-link">Контакты</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button id="cartBtn" class="relative grid h-10 w-10 place-items-center rounded-full transition hover:bg-white/10" aria-label="Корзина">
+        <svg class="h-[18px] w-[18px]"><use href="#i-bag"/></svg>
+        <span id="cartBadge" class="cart-badge">0</span>
+      </button>
+      <button data-open-booking class="btn btn-cream btn-sm hidden sm:inline-flex">Забронировать</button>
+      <button id="burger" class="grid h-10 w-10 place-items-center rounded-full transition hover:bg-white/10 lg:hidden" aria-label="Меню" aria-expanded="false">
+        <svg class="h-5 w-5"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div id="mobileMenu" class="mobile-menu">
+  <div class="flex h-[76px] items-center justify-between px-5 md:px-8">
+    <span class="font-display text-[26px] tracking-[.08em]">QARA</span>
+    <button id="closeMenu" class="grid h-10 w-10 place-items-center rounded-full border border-white/20" aria-label="Закрыть">
+      <svg class="h-5 w-5"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <nav class="mt-10 flex flex-col px-5 md:px-8">
+    <a href="#menu" class="mobile-link border-b border-white/10 py-6 font-display text-[34px] leading-none">Меню</a>
+    <a href="#roastery" class="mobile-link border-b border-white/10 py-6 font-display text-[34px] leading-none">Обжарка</a>
+    <a href="#shop" class="mobile-link border-b border-white/10 py-6 font-display text-[34px] leading-none">Магазин</a>
+    <a href="#gallery" class="mobile-link border-b border-white/10 py-6 font-display text-[34px] leading-none">Пространство</a>
+    <a href="#visit" class="mobile-link border-b border-white/10 py-6 font-display text-[34px] leading-none">Контакты</a>
+  </nav>
+  <div class="mt-8 px-5 md:px-8">
+    <button data-open-booking class="btn btn-cream w-full">Забронировать стол</button>
+    <p class="mt-6 text-[11px] uppercase tracking-[.2em] text-white/40">Алматы · Достык 132 · с 07:30</p>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink pb-10 pt-32 text-cream">
+    <div class="parallax" data-parallax="70">
+      <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1800&q=80" alt="Свежесваренный кофе на деревянном столе" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/35 to-ink"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(70%_50%_at_70%_20%,rgba(198,161,91,.16),transparent_70%)]"></div>
+
+    <!-- декоративные цветы -->
+    <svg class="bloom left-[4%] top-[18%] h-24 w-24 md:h-40 md:w-40" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+      <circle cx="50" cy="50" r="4.5"/>
+      <g><ellipse cx="50" cy="31" rx="8" ry="14"/></g>
+      <g transform="rotate(72 50 50)"><ellipse cx="50" cy="31" rx="8" ry="14"/></g>
+      <g transform="rotate(144 50 50)"><ellipse cx="50" cy="31" rx="8" ry="14"/></g>
+      <g transform="rotate(216 50 50)"><ellipse cx="50" cy="31" rx="8" ry="14"/></g>
+      <g transform="rotate(288 50 50)"><ellipse cx="50" cy="31" rx="8" ry="14"/></g>
+    </svg>
+    <svg class="bloom bloom--gold right-[8%] top-[30%] h-16 w-16 md:h-28 md:w-28" style="animation-delay:-6s" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+      <circle cx="50" cy="50" r="4"/>
+      <g><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(72 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(144 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(216 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(288 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+    </svg>
+    <svg class="bloom left-[18%] top-[62%] h-10 w-10 md:h-16 md:w-16" style="animation-delay:-11s" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+      <circle cx="50" cy="50" r="5"/>
+      <g><ellipse cx="50" cy="33" rx="7" ry="12"/></g>
+      <g transform="rotate(72 50 50)"><ellipse cx="50" cy="33" rx="7" ry="12"/></g>
+      <g transform="rotate(144 50 50)"><ellipse cx="50" cy="33" rx="7" ry="12"/></g>
+      <g transform="rotate(216 50 50)"><ellipse cx="50" cy="33" rx="7" ry="12"/></g>
+      <g transform="rotate(288 50 50)"><ellipse cx="50" cy="33" rx="7" ry="12"/></g>
+    </svg>
+
+    <div class="relative z-10 mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <p data-reveal class="eyebrow eyebrow-light">Спешелти-кофейня · Алматы · с 2016</p>
+      <h1 data-reveal style="--d:120ms" class="display display-light mt-6 max-w-[15ch] text-[clamp(46px,8.4vw,124px)]">
+        Кофе, который<br /> начинается с <em>рассвета</em>.
+      </h1>
+      <p data-reveal style="--d:240ms" class="mt-8 max-w-[440px] text-[14px] leading-relaxed text-cream/65">
+        Мы обжариваем зерно в Алматы каждую среду, варим на воде с минерализацией 120 ppm и подаём в керамике, которую держать в руках так же приятно, как пить из неё.
+      </p>
+      <div data-reveal style="--d:340ms" class="mt-10 flex flex-wrap items-center gap-3">
+        <a href="#menu" class="btn btn-cream">Смотреть меню <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+        <button data-open-booking class="btn btn-outline">Забронировать стол</button>
+      </div>
+
+      <div data-reveal style="--d:460ms" class="mt-16 grid grid-cols-2 gap-6 border-t border-white/15 pt-6 text-[11px] uppercase tracking-[.16em] text-cream/45 sm:grid-cols-4">
+        <span>Своя обжарка</span>
+        <span>Завтраки с 07:30</span>
+        <span>Достык 132</span>
+        <span class="flex items-center gap-2 text-cream/60"><span class="inline-block h-1 w-1 animate-pulse rounded-full bg-gold"></span> Открыто до 21:00</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <div class="marquee border-y border-ink/10 bg-paper py-4 text-ink">
+    <div class="marquee-track">
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Specialty coffee</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Своя обжарка</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Эфиопия · Колумбия · Кения</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Свежая выпечка</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Specialty coffee</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Своя обжарка</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Эфиопия · Колумбия · Кения</span><span class="text-gold">✦</span>
+      <span class="text-[10.5px] uppercase tracking-[.3em]">Свежая выпечка</span><span class="text-gold">✦</span>
+    </div>
+  </div>
+
+  <!-- ================= MANIFESTO ================= -->
+  <section class="relative overflow-hidden bg-cream py-24 md:py-32">
+    <svg class="bloom bloom--clay right-[3%] top-[10%] h-20 w-20 opacity-40 md:h-32 md:w-32" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+      <circle cx="50" cy="50" r="4"/>
+      <g><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(72 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(144 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(216 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(288 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+    </svg>
+
+    <div class="mx-auto grid w-full max-w-[1320px] gap-14 px-5 md:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
+      <div>
+        <p data-reveal class="eyebrow">01 — Манифест</p>
+        <h2 data-reveal style="--d:80ms" class="display mt-6 max-w-[16ch] text-[clamp(34px,4.6vw,62px)]">
+          Мы не открывали кофейню. Мы открыли <em>лабораторию вкуса</em>.
+        </h2>
+        <p data-reveal style="--d:160ms" class="mt-8 max-w-[520px] text-[14.5px] leading-[1.75] text-ink/65">
+          Началось всё с одной обжарочной машины на три килограмма и упрямой идеи: в Алматы может быть кофе, за которым хочется возвращаться каждое утро. Сегодня мы обжариваем четырнадцать лотов из шести стран, печём хлеб на закваске и всё ещё пробуем каждый новый лот всей командой — прежде чем он попадёт в меню.
+        </p>
+        <p data-reveal style="--d:220ms" class="mt-5 max-w-[520px] text-[14.5px] leading-[1.75] text-ink/65">
+          Мы работаем напрямую с фермерами: платим выше биржи, знаем имена и высоту, на которой растёт каждая ягода. Это не маркетинг — это единственный способ получить чашку, которую не стыдно назвать своей.
+        </p>
+
+        <div class="mt-12 grid grid-cols-3 gap-6 border-t border-ink/10 pt-8">
+          <div data-reveal style="--d:280ms">
+            <p class="font-display text-[34px] leading-none">9</p>
+            <p class="mt-2 text-[10.5px] uppercase tracking-[.18em] text-ink/45">лет обжарки</p>
+          </div>
+          <div data-reveal style="--d:340ms">
+            <p class="font-display text-[34px] leading-none">14</p>
+            <p class="mt-2 text-[10.5px] uppercase tracking-[.18em] text-ink/45">лотов в году</p>
+          </div>
+          <div data-reveal style="--d:400ms">
+            <p class="font-display text-[34px] leading-none">120K</p>
+            <p class="mt-2 text-[10.5px] uppercase tracking-[.18em] text-ink/45">чашек в год</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div data-reveal="scale" class="img-reveal relative overflow-hidden rounded-[4px]">
+          <img class="h-[420px] w-full object-cover md:h-[560px]" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80" alt="Интерьер кофейни QARA" />
+        </div>
+        <div data-reveal="right" style="--d:220ms" class="relative -mt-14 ml-6 mr-6 border border-ink/10 bg-paper p-7 shadow-[0_30px_60px_-40px_rgba(20,17,16,.5)] sm:ml-12 sm:mr-0 sm:max-w-[340px]">
+          <svg class="h-5 w-5 text-clay"><use href="#i-leaf"/></svg>
+          <p class="mt-4 font-display text-[22px] leading-snug">«Свет, вода, температура. Всё остальное — характер.»</p>
+          <p class="mt-4 text-[10.5px] uppercase tracking-[.18em] text-ink/40">Айгерим, шеф-бариста</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENU ================= -->
+  <section id="menu" class="relative bg-paper py-24 md:py-32">
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-8" data-reveal>
+        <div>
+          <p class="eyebrow">02 — Меню</p>
+          <h2 class="display mt-5 max-w-[14ch] text-[clamp(34px,4.6vw,62px)]">То, что мы <em>варим</em> каждый день.</h2>
+        </div>
+        <p class="max-w-[330px] text-[13px] leading-relaxed text-ink/55">
+          Зерно меняется каждые две недели. В карте всегда есть знакомое — и один лот, который вы ещё не пробовали.
+        </p>
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center gap-x-9 gap-y-2 border-b border-ink/10 pb-1" id="menuTabs" role="tablist" aria-label="Разделы меню">
+        <button class="tab is-active" data-tab="espresso" role="tab" aria-selected="true">Эспрессо</button>
+        <button class="tab" data-tab="filter" role="tab" aria-selected="false">Фильтр</button>
+        <button class="tab" data-tab="other" role="tab" aria-selected="false">Не кофе</button>
+        <button class="tab" data-tab="food" role="tab" aria-selected="false">Кухня</button>
+      </div>
+
+      <div id="menuPanel" class="mt-10 grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-16"></div>
+
+      <p class="mt-10 text-[11px] uppercase tracking-[.16em] text-ink/35">Все цены в тенге · молоко на выбор: 3,2%, миндальное, овсяное +200 ₸</p>
+    </div>
+  </section>
+
+  <!-- ================= SIGNATURE ================= -->
+  <section class="relative overflow-hidden bg-ink py-24 text-cream md:py-32">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_40%_at_20%_0%,rgba(178,82,46,.18),transparent_70%)]"></div>
+    <div class="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-8" data-reveal>
+        <div>
+          <p class="eyebrow eyebrow-light">03 — Три главных</p>
+          <h2 class="display display-light mt-5 max-w-[15ch] text-[clamp(34px,4.6vw,62px)]">Напитки, за которыми <em>возвращаются</em>.</h2>
+        </div>
+        <a href="#menu" class="link-underline text-[12px] uppercase tracking-[.18em] text-cream/60">Всё меню <svg class="h-3.5 w-3.5"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        <article data-reveal class="group">
+          <div class="img-reveal zoom relative overflow-hidden rounded-[3px]">
+            <img class="h-[430px] w-full object-cover" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80" alt="Флэт уайт с латте-артом" />
+            <span class="absolute left-5 top-5 text-[10px] uppercase tracking-[.22em] text-white/70">01</span>
+          </div>
+          <div class="mt-6 flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-display text-[26px] leading-none">Флэт уайт</h3>
+              <p class="mt-2 max-w-[240px] text-[12.5px] leading-relaxed text-cream/50">Двойной эспрессо и микропена. Плотный, как шёлк, с нотой карамели.</p>
+            </div>
+            <span class="tabular text-[15px] text-cream/80">2 100 ₸</span>
+          </div>
+        </article>
+
+        <article data-reveal style="--d:120ms" class="group md:mt-16">
+          <div class="img-reveal zoom relative overflow-hidden rounded-[3px]">
+            <img class="h-[430px] w-full object-cover" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80" alt="Колд брю со льдом" />
+            <span class="absolute left-5 top-5 text-[10px] uppercase tracking-[.22em] text-white/70">02</span>
+          </div>
+          <div class="mt-6 flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-display text-[26px] leading-none">Колд брю</h3>
+              <p class="mt-2 max-w-[240px] text-[12.5px] leading-relaxed text-cream/50">Восемнадцать часов холодной экстракции. Чёрная смородина и какао.</p>
+            </div>
+            <span class="tabular text-[15px] text-cream/80">2 300 ₸</span>
+          </div>
+        </article>
+
+        <article data-reveal style="--d:240ms" class="group md:mt-32">
+          <div class="img-reveal zoom relative overflow-hidden rounded-[3px]">
+            <img class="h-[430px] w-full object-cover" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Капучино в керамической чашке" />
+            <span class="absolute left-5 top-5 text-[10px] uppercase tracking-[.22em] text-white/70">03</span>
+          </div>
+          <div class="mt-6 flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-display text-[26px] leading-none">Капучино</h3>
+              <p class="mt-2 max-w-[240px] text-[12.5px] leading-relaxed text-cream/50">Классика, которую мы не трогали. Только зерно и молоко.</p>
+            </div>
+            <span class="tabular text-[15px] text-cream/80">1 900 ₸</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ROASTERY ================= -->
+  <section id="roastery" class="relative overflow-hidden bg-cream py-24 md:py-32">
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+        <div class="order-2 lg:order-1">
+          <p data-reveal class="eyebrow">04 — Обжарка</p>
+          <h2 data-reveal style="--d:80ms" class="display mt-5 max-w-[15ch] text-[clamp(34px,4.6vw,62px)]">Обжарка — это <em>разговор</em> с зерном.</h2>
+          <p data-reveal style="--d:150ms" class="mt-7 max-w-[470px] text-[14.5px] leading-[1.75] text-ink/65">
+            Двенадцать килограммов за раз, четыре профиля, один каппинг каждую пятницу. Мы записываем каждую партию: влажность, плотность, точку первого треска и то, как зерно ведёт себя через семь дней отдыха.
+          </p>
+
+          <div class="mt-12 space-y-8">
+            <div data-reveal style="--d:220ms" class="flex gap-6 border-t border-ink/10 pt-6">
+              <span class="font-display text-[13px] text-clay">01</span>
+              <div>
+                <h3 class="text-[15px] font-medium">Отбор</h3>
+                <p class="mt-1.5 max-w-[400px] text-[13px] leading-relaxed text-ink/55">Пробуем сорок образцов в год, оставляем четырнадцать. Остальное — не наше.</p>
+              </div>
+            </div>
+            <div data-reveal style="--d:290ms" class="flex gap-6 border-t border-ink/10 pt-6">
+              <span class="font-display text-[13px] text-clay">02</span>
+              <div>
+                <h3 class="text-[15px] font-medium">Профиль</h3>
+                <p class="mt-1.5 max-w-[400px] text-[13px] leading-relaxed text-ink/55">Каждому лоту — своя кривая. Светлая Эфиопия и тёмная Бразилия не могут обжариваться одинаково.</p>
+              </div>
+            </div>
+            <div data-reveal style="--d:360ms" class="flex gap-6 border-t border-ink/10 pt-6">
+              <span class="font-display text-[13px] text-clay">03</span>
+              <div>
+                <h3 class="text-[15px] font-medium">Дегустация</h3>
+                <p class="mt-1.5 max-w-[400px] text-[13px] leading-relaxed text-ink/55">Каппинг открыт для гостей: пять чашек, слепая дегустация, честные оценки.</p>
+              </div>
+            </div>
+          </div>
+
+          <button data-open-booking class="btn btn-dark mt-12">Записаться на каппинг <svg class="h-4 w-4"><use href="#i-arrow"/></svg></button>
+        </div>
+
+        <div class="relative order-1 lg:order-2">
+          <div data-reveal="scale" class="img-reveal relative h-[430px] overflow-hidden rounded-[4px] md:h-[640px]">
+            <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80" alt="Кофейные зёрна крупным планом" />
+          </div>
+          <div class="absolute -bottom-6 -left-2 flex items-center gap-4 border border-ink/10 bg-paper px-6 py-4 sm:left-8">
+            <svg class="h-6 w-6 text-clay"><use href="#i-flame"/></svg>
+            <div>
+              <p class="text-[10px] uppercase tracking-[.18em] text-ink/40">Обжарка каждую среду</p>
+              <p class="mt-1 text-[13px] font-medium">Свежесть — 7 дней</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOP ================= -->
+  <section id="shop" class="relative bg-ink py-24 text-cream md:py-32">
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-20">
+        <div>
+          <p data-reveal class="eyebrow eyebrow-light">05 — Магазин</p>
+          <h2 data-reveal style="--d:80ms" class="display display-light mt-5 max-w-[12ch] text-[clamp(34px,4.6vw,62px)]">Зерно <em>с собой</em>.</h2>
+          <p data-reveal style="--d:150ms" class="mt-7 max-w-[380px] text-[14px] leading-[1.8] text-cream/60">
+            Обжарено в Алматы, упаковано в среду. Каждая пачка — с датой, профилем и именем фермера. 250 грамм, кисло-сладкий баланс, который вы уже пробовали у нас в чашке.
+          </p>
+
+          <div data-reveal style="--d:220ms" class="mt-10 overflow-hidden">
+            <div class="img-reveal overflow-hidden rounded-[3px]">
+              <img class="h-[260px] w-full object-cover" src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=1000&q=80" alt="Свежеобжаренные зёрна" />
+            </div>
+          </div>
+
+          <div class="mt-8 flex items-center gap-4 text-[11px] uppercase tracking-[.16em] text-cream/40">
+            <svg class="h-4 w-4"><use href="#i-leaf"/></svg>
+            <span>Прямые контракты · урожай 2025</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-baseline justify-between border-b border-white/15 pb-4">
+            <p class="text-[10px] uppercase tracking-[.2em] text-cream/40">Свежая обжарка</p>
+            <p class="text-[10px] uppercase tracking-[.2em] text-cream/40">250 г</p>
+          </div>
+          <ul id="beanList" class="divide-y divide-white/10"></ul>
+          <p class="mt-8 text-[12px] leading-relaxed text-cream/40">Доставка по Алматы — в день заказа, по Казахстану — 2–3 дня. Бесплатно от 15 000 ₸.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section id="gallery" class="relative bg-cream py-24 md:py-32">
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="flex flex-wrap items-end justify-between gap-8" data-reveal>
+        <div>
+          <p class="eyebrow">06 — Пространство</p>
+          <h2 class="display mt-5 max-w-[16ch] text-[clamp(34px,4.6vw,62px)]">Место, где хочется <em>задержаться</em>.</h2>
+        </div>
+        <p class="max-w-[320px] text-[13px] leading-relaxed text-ink/55">
+          Двадцать восемь посадочных мест, большой стол для работы, тихий двор и винил по вечерам.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 gap-3 md:grid-cols-12 md:gap-4">
+        <button class="zoom group relative col-span-2 h-[320px] overflow-hidden rounded-[3px] md:col-span-7 md:h-[540px]" data-lightbox data-src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=85" data-caption="Главный зал" data-reveal="scale">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80" alt="Главный зал кофейни" />
+          <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-[.2em] text-white/80">Главный зал</span>
+        </button>
+
+        <button class="zoom group relative col-span-1 h-[320px] overflow-hidden rounded-[3px] md:col-span-5 md:h-[260px]" data-lightbox data-src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1600&q=85" data-caption="Угол у окна" data-reveal="scale" style="--d:90ms">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=900&q=80" alt="Столик у окна" />
+          <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-[.2em] text-white/80">Угол у окна</span>
+        </button>
+
+        <button class="zoom group relative col-span-1 h-[320px] overflow-hidden rounded-[3px] md:col-span-5 md:h-[260px]" data-lightbox data-src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=1600&q=85" data-caption="Вечерняя смена" data-reveal="scale" style="--d:160ms">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80" alt="Вечерняя смена в кофейне" />
+          <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-[.2em] text-white/80">Вечерняя смена</span>
+        </button>
+
+        <button class="zoom group relative col-span-1 h-[240px] overflow-hidden rounded-[3px] md:col-span-4 md:h-[300px]" data-lightbox data-src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=85" data-caption="Бархат утра" data-reveal="scale" style="--d:230ms">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Чашка кофе на столе" />
+          <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-[.2em] text-white/80">Бархат утра</span>
+        </button>
+
+        <button class="zoom group relative col-span-1 h-[240px] overflow-hidden rounded-[3px] md:col-span-8 md:h-[300px]" data-lightbox data-src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1600&q=85" data-caption="Ритуал заваривания" data-reveal="scale" style="--d:300ms">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80" alt="Ритуал заваривания кофе" />
+          <span class="absolute bottom-4 left-4 text-[10px] uppercase tracking-[.2em] text-white/80">Ритуал заваривания</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="relative overflow-hidden bg-paper py-24 md:py-32">
+    <svg class="bloom right-[6%] top-[14%] h-16 w-16 opacity-30 md:h-24 md:w-24" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+      <circle cx="50" cy="50" r="4"/>
+      <g><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(72 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(144 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(216 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+      <g transform="rotate(288 50 50)"><ellipse cx="50" cy="32" rx="7" ry="13"/></g>
+    </svg>
+
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <p data-reveal class="eyebrow text-center">07 — Что говорят</p>
+      <div class="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
+        <blockquote data-reveal class="md:mt-0">
+          <div class="flex gap-1 text-gold">
+            <svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg>
+          </div>
+          <p class="mt-5 font-display text-[22px] leading-[1.4]">«Прихожу ради колд брю, остаюсь ради людей. Здесь помнят, как ты пьёшь кофе.»</p>
+          <footer class="mt-5 text-[10.5px] uppercase tracking-[.18em] text-ink/40">Айдана · гостья с 2019</footer>
+        </blockquote>
+
+        <blockquote data-reveal style="--d:120ms" class="md:mt-12">
+          <div class="flex gap-1 text-gold">
+            <svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg>
+          </div>
+          <p class="mt-5 font-display text-[22px] leading-[1.4]">«Лучшая обжарка в городе. Эфиопия Гуджи — это букет, а не просто кофе.»</p>
+          <footer class="mt-5 text-[10.5px] uppercase tracking-[.18em] text-ink/40">Coffee Guide KZ</footer>
+        </blockquote>
+
+        <blockquote data-reveal style="--d:240ms" class="md:mt-24">
+          <div class="flex gap-1 text-gold">
+            <svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg><svg class="h-3 w-3"><use href="#i-star"/></svg>
+          </div>
+          <p class="mt-5 font-display text-[22px] leading-[1.4]">«Круассан и флэт уайт в 8 утра — единственная причина, по которой я встаю раньше.»</p>
+          <footer class="mt-5 text-[10.5px] uppercase tracking-[.18em] text-ink/40">Тимур · постоянный гость</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VISIT ================= -->
+  <section id="visit" class="relative overflow-hidden bg-ink py-24 text-cream md:py-32">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_80%_10%,rgba(198,161,91,.14),transparent_70%)]"></div>
+
+    <div class="relative mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <p data-reveal class="eyebrow eyebrow-light">08 — Приходите</p>
+          <h2 data-reveal style="--d:80ms" class="display display-light mt-5 max-w-[14ch] text-[clamp(34px,4.6vw,62px)]">Мы на <em>Достык 132</em>.</h2>
+          <p data-reveal style="--d:150ms" class="mt-7 max-w-[420px] text-[14px] leading-[1.8] text-cream/60">
+            Двор дома, вход со стороны бульвара. Есть велопарковка, розетки у каждого стола и тихая комната для звонков после обеда.
+          </p>
+
+          <div class="mt-10 space-y-6">
+            <div data-reveal style="--d:220ms" class="flex items-start gap-4 border-t border-white/12 pt-5">
+              <svg class="mt-0.5 h-4 w-4 text-gold"><use href="#i-pin"/></svg>
+              <div>
+                <p class="text-[11px] uppercase tracking-[.18em] text-cream/35">Адрес</p>
+                <p class="mt-1 text-[14px]">пр. Достык 132, Алматы</p>
+              </div>
+            </div>
+            <div data-reveal style="--d:290ms" class="flex items-start gap-4 border-t border-white/12 pt-5">
+              <svg class="mt-0.5 h-4 w-4 text-gold"><use href="#i-clock"/></svg>
+              <div>
+                <p class="text-[11px] uppercase tracking-[.18em] text-cream/35">Часы</p>
+                <p class="mt-1 text-[14px]">Пн–Пт 07:30 — 21:00</p>
+                <p class="mt-0.5 text-[14px] text-cream/60">Сб–Вс 08:30 — 22:00</p>
+              </div>
+            </div>
+            <div data-reveal style="--d:360ms" class="flex items-start gap-4 border-t border-white/12 pt-5">
+              <svg class="mt-0.5 h-4 w-4 text-gold"><use href="#i-phone"/></svg>
+              <div>
+                <p class="text-[11px] uppercase tracking-[.18em] text-cream/35">Связь</p>
+                <a href="tel:+77272501232" class="mt-1 block text-[14px] transition hover:text-gold">+7 727 250 12 32</a>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal style="--d:420ms" class="mt-10 flex flex-wrap gap-3">
+            <button data-open-booking class="btn btn-cream">Забронировать стол</button>
+            <a href="https://2gis.kz/almaty" target="_blank" rel="noopener" class="btn btn-outline">Построить маршрут</a>
+          </div>
+        </div>
+
+        <div data-reveal="scale" class="img-reveal relative h-[420px] overflow-hidden rounded-[4px] md:h-[560px]">
+          <img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=80" alt="Вход в кофейню QARA" />
+          <div class="absolute bottom-0 left-0 right-0 flex items-center justify-between gap-4 bg-gradient-to-t from-ink to-transparent p-6">
+            <p class="text-[11px] uppercase tracking-[.2em] text-cream/60">Двор · вход с бульвара</p>
+            <span class="text-[11px] uppercase tracking-[.2em] text-gold">QARA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-cream py-16 text-ink">
+    <div class="mx-auto w-full max-w-[1320px] px-5 md:px-8">
+      <div class="grid gap-12 border-b border-ink/10 pb-12 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+        <div>
+          <p class="font-display text-[28px] tracking-[.06em]">QARA</p>
+          <p class="mt-4 max-w-[240px] text-[12.5px] leading-relaxed text-ink/50">
+            Кофейня и обжарка в Алматы. С 2016 года — про зерно, воду и людей.
+          </p>
+          <div class="mt-6 flex gap-3">
+            <a href="#" class="grid h-9 w-9 place-items-center rounded-full border border-ink/15 transition hover:border-ink/40" aria-label="Instagram"><svg class="h-4 w-4"><use href="#i-instagram"/></svg></a>
+            <a href="tel:+77272501232" class="grid h-9 w-9 place-items-center rounded-full border border-ink/15 transition hover:border-ink/40" aria-label="Позвонить"><svg class="h-4 w-4"><use href="#i-phone"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-[10px] uppercase tracking-[.2em] text-ink/35">Навигация</p>
+          <ul class="mt-4 space-y-2.5 text-[12.5px] text-ink/60">
+            <li><a href="#menu" class="transition hover:text-ink">Меню</a></li>
+            <li><a href="#roastery" class="transition hover:text-ink">Обжарка</a></li>
+            <li><a href="#shop" class="transition hover:text-ink">Магазин</a></li>
+            <li><a href="#gallery" class="transition hover:text-ink">Пространство</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-[10px] uppercase tracking-[.2em] text-ink/35">Контакты</p>
+          <ul class="mt-4 space-y-2.5 text-[12.5px] text-ink/60">
+            <li>пр. Достык 132</li>
+            <li><a href="tel:+77272501232" class="transition hover:text-ink">+7 727 250 12 32</a></li>
+            <li><a href="mailto:hello@qara.coffee" class="transition hover:text-ink">hello@qara.coffee</a></li>
+            <li>Ежедневно с 07:30</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-[10px] uppercase tracking-[.2em] text-ink/35">Письма о новых лотах</p>
+          <form id="newsletter" class="mt-4" novalidate>
+            <div class="flex items-center gap-3 border-b border-ink/20 pb-2">
+              <input id="newsletterEmail" type="email" placeholder="you@example.com" class="w-full bg-transparent text-[13px] placeholder:text-ink/35 focus:outline-none" />
+              <button type="submit" class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-cream transition hover:bg-clay" aria-label="Подписаться">
+                <svg class="h-3.5 w-3.5"><use href="#i-right"/></svg>
+              </button>
+            </div>
+            <p class="mt-3 text-[10.5px] leading-relaxed text-ink/35">Раз в месяц. Без спама — только даты обжарки и новые лоты.</p>
+          </form>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 pt-6 text-[10.5px] uppercase tracking-[.14em] text-ink/35 sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 QARA Coffee &amp; Bakery</p>
+        <p>Алматы · Казахстан</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ============ CART ============ -->
+<div id="scrim" class="scrim"></div>
+<aside id="cart" class="cart" aria-hidden="true" aria-label="Корзина">
+  <div class="flex items-start justify-between border-b border-ink/10 px-6 py-5">
+    <div>
+      <p class="font-display text-[22px] leading-none">Корзина</p>
+      <p id="cartCountLabel" class="mt-2 text-[10.5px] uppercase tracking-[.16em] text-ink/40">0 позиций</p>
+    </div>
+    <button id="cartClose" class="grid h-9 w-9 place-items-center rounded-full border border-ink/15 transition hover:bg-ink/5" aria-label="Закрыть корзину">
+      <svg class="h-4 w-4"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <div id="cartBody" class="flex-1 overflow-y-auto px-6"></div>
+  <div id="cartFoot" class="border-t border-ink/10 px-6 py-5"></div>
+</aside>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div id="booking" class="modal" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+  <div class="absolute inset-0 bg-ink/70 backdrop-blur-sm" data-close-booking></div>
+  <div class="modal-panel relative w-full max-w-[520px] bg-paper p-7 md:p-9">
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <p class="eyebrow">Бронирование</p>
+        <h2 id="bookingTitle" class="display mt-3 text-[30px]">Стол на <em>утро</em>.</h2>
+      </div>
+      <button data-close-booking class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-ink/15 transition hover:bg-ink/5" aria-label="Закрыть">
+        <svg class="h-4 w-4"><use href="#i-x"/></svg>
+      </button>
+    </div>
+
+    <form id="bookingForm" class="mt-7 space-y-5" novalidate>
+      <div>
+        <label for="bkName" class="text-[10px] uppercase tracking-[.18em] text-ink/40">Имя</label>
+        <input id="bkName" name="name" class="field mt-1" placeholder="Как к вам обращаться" autocomplete="name" />
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label for="bkPhone" class="text-[10px] uppercase tracking-[.18em] text-ink/40">Телефон</label>
+          <input id="bkPhone" name="phone" type="tel" class="field mt-1" placeholder="+7 ___ ___ __ __" autocomplete="tel" />
+        </div>
+        <div>
+          <label for="bkGuests" class="text-[10px] uppercase tracking-[.18em] text-ink/40">Гостей</label>
+          <select id="bkGuests" name="guests" class="field mt-1">
+            <option>1–2</option><option>3–4</option><option>5–6</option><option>7+</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label for="bkDate" class="text-[10px] uppercase tracking-[.18em] text-ink/40">Дата</label>
+          <input id="bkDate" name="date" type="date" class="field mt-1" />
+        </div>
+        <div>
+          <label for="bkTime" class="text-[10px] uppercase tracking-[.18em] text-ink/40">Время</label>
+          <select id="bkTime" name="time" class="field mt-1">
+            <option>08:00</option><option>09:30</option><option>11:00</option><option>13:00</option><option>16:00</option><option>18:30</option>
+          </select>
+        </div>
+      </div>
+      <p id="bookingError" class="hidden text-[11.5px] text-clay"></p>
+      <div class="flex items-center gap-3 pt-1">
+        <button type="submit" class="btn btn-dark flex-1">Забронировать</button>
+      </div>
+      <p class="text-[10.5px] leading-relaxed text-ink/35">Подтвердим звонком в течение 15 минут. Стол держим 15 минут после указанного времени.</p>
+    </form>
+
+    <div id="bookingSuccess" class="hidden py-6 text-center">
+      <div class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-olive/15 text-olive">
+        <svg class="h-6 w-6"><use href="#i-check"/></svg>
+      </div>
+      <p class="mt-5 font-display text-[24px]">Стол забронирован</p>
+      <p id="bookingSummary" class="mt-2 text-[12.5px] text-ink/55"></p>
+      <button data-close-booking class="btn btn-outline-dark mt-7">Готово</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button id="lightboxClose" class="absolute right-5 top-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/25 text-cream transition hover:bg-white/10" aria-label="Закрыть">
+    <svg class="h-5 w-5"><use href="#i-x"/></svg>
+  </button>
+  <figure class="px-4 text-center">
+    <img id="lightboxImg" src="" alt="" />
+    <figcaption id="lightboxCap" class="mt-4 text-[10.5px] uppercase tracking-[.22em] text-cream/60"></figcaption>
+  </figure>
+</div>
+
+<div id="toasts" class="pointer-events-none fixed bottom-5 right-5 z-[110] flex w-[min(340px,calc(100vw-2.5rem))] flex-col gap-2" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var fmt = function (n) { return Math.round(n).toLocaleString('ru-RU').replace(/\u00A0/g, ' ') + ' ₸'; };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ================= фото ================= */
+  var IMG = {
+    espresso: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80',
+    filter: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80',
+    other: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=80',
+    food: 'https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=900&q=80'
+  };
+
+  /* ================= меню ================= */
+  var MENU = {
+    espresso: {
+      label: 'Эспрессо',
+      featured: { img: IMG.espresso, title: 'Флэт уайт', note: 'Бразилия Серрадо · Эфиопия Гуджи', price: 2100, text: 'Плотная микропена, вкус карамели и тёмного шоколада. Наш самый заказываемый напиток.' },
+      items: [
+        ['Эспрессо', '30 мл · двойной шот', 1200],
+        ['Доппио', '60 мл · без молока', 1500],
+        ['Кортадо', 'эспрессо и немного молока', 1700],
+        ['Капучино', 'молоко 3,2% · плотная пена', 1900],
+        ['Латте', 'мягкий, с карамельной нотой', 2000],
+        ['Флэт уайт', 'двойной эспрессо · микропена', 2100],
+        ['Мокко', 'тёмный шоколад · эспрессо', 2300]
+      ]
+    },
+    filter: {
+      label: 'Фильтр',
+      featured: { img: IMG.filter, title: 'V60 Эфиопия', note: 'Natural · светлая обжарка', price: 2400, text: 'Жасмин, персик и бергамот. Завариваем вручную, 250 мл, подаём в стекле.' },
+      items: [
+        ['V60 Эфиопия Гуджи', 'natural · жасмин, персик', 2400],
+        ['V60 Кения Ньери', 'washed · смородина, грейпфрут', 2600],
+        ['Аэропресс Колумбия', 'карамель, красное яблоко', 2300],
+        ['Кемекс Бразилия', 'какао, фундук', 2200],
+        ['Батч-брю', '200 мл · ежедневный лот', 1800],
+        ['Колд брю', '18 часов экстракции', 2300]
+      ]
+    },
+    other: {
+      label: 'Не кофе',
+      featured: { img: IMG.other, title: 'Матча-латте', note: 'Церемониальная матча · Удзи', price: 2400, text: 'Первый сбор, каменные жернова. Взбиваем венчиком, подаём с овсяным молоком.' },
+      items: [
+        ['Матча-латте', 'церемониальная матча', 2400],
+        ['Какао на молоке', '70% шоколад · корица', 2100],
+        ['Чай с чабрецом', 'Алматинский сбор', 1500],
+        ['Лимонад «Тархун»', 'эстрагон, лайм, мята', 1700],
+        ['Моченое яблоко', 'свой рецепт, 250 мл', 1600],
+        ['Горячий шоколад', 'с маршмеллоу', 2200]
+      ]
+    },
+    food: {
+      label: 'Кухня',
+      featured: { img: IMG.food, title: 'Круассан', note: 'На закваске · 72 слоя', price: 1900, text: 'Печём каждое утро в 06:00. Слоистый, с маслом 82% и тонкой солью.' },
+      items: [
+        ['Круассан', 'масло 82% · 72 слоя', 1900],
+        ['Круассан с миндалём', 'франжипан · миндальные лепестки', 2300],
+        ['Сырники', 'с домашним джемом', 2600],
+        ['Авокадо-тост', 'хлеб на закваске · яйцо пашот', 3100],
+        ['Овсянка', 'печёное яблоко · корица', 2200],
+        ['Бейгл с лососем', 'сливочный сыр · каперсы', 3400]
+      ]
+    }
+  };
+
+  function menuTemplate(key) {
+    var d = MENU[key];
+    var rows = d.items.map(function (it) {
+      return '<li class="menu-row flex items-baseline gap-4 px-2 py-4">' +
+        '<div class="min-w-0">' +
+          '<p class="text-[14.5px] font-medium">' + it[0] + '</p>' +
+          '<p class="mt-0.5 text-[11.5px] text-ink/45">' + it[1] + '</p>' +
+        '</div>' +
+        '<span class="mx-1 hidden flex-1 border-b border-dotted border-ink/20 sm:block"></span>' +
+        '<span class="tabular ml-auto text-[14px]">' + fmt(it[2]) + '</span>' +
+      '</li>';
+    }).join('');
+
+    return '<div class="img-reveal relative overflow-hidden rounded-[4px]">' +
+        '<img class="h-[320px] w-full object-cover transition duration-[1.4s] hover:scale-105 md:h-[520px]" src="' + d.featured.img + '" alt="' + d.featured.title + '" />' +
+        '<div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent"></div>' +
+        '<div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">' +
+          '<p class="text-[10px] uppercase tracking-[.2em] text-cream/55">' + d.featured.note + '</p>' +
+          '<div class="mt-2 flex items-end justify-between gap-4">' +
+            '<h3 class="font-display text-[30px] leading-none text-cream md:text-[38px]">' + d.featured.title + '</h3>' +
+            '<span class="tabular text-[15px] text-cream">' + fmt(d.featured.price) + '</span>' +
+          '</div>' +
+          '<p class="mt-3 max-w-[340px] text-[12.5px] leading-relaxed text-cream/60">' + d.featured.text + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<div><ul class="divide-y divide-ink/10 border-t border-ink/10">' + rows + '</ul>' +
+        '<p class="mt-6 text-[11px] uppercase tracking-[.16em] text-ink/35">' + d.label + ' · подаём с 07:30</p>' +
+      '</div>';
+  }
+
+  function renderMenu(key) {
+    var panel = $('#menuPanel');
+    if (!panel) return;
+    if (reduced) { panel.innerHTML = menuTemplate(key); return; }
+    panel.classList.add('is-out');
+    setTimeout(function () {
+      panel.innerHTML = menuTemplate(key);
+      panel.classList.remove('is-out');
+    }, 170);
+  }
+
+  $$('#menuTabs .tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      $$('#menuTabs .tab').forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      renderMenu(tab.dataset.tab);
+    });
+  });
+
+  /* ================= зерно ================= */
+  var BEANS = [
+    { id: 'guji', name: 'Ethiopia Guji', meta: 'Natural · светлая обжарка', notes: 'жасмин · персик · бергамот', price: 4900, img: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=300&q=80' },
+    { id: 'huila', name: 'Colombia Huila', meta: 'Washed · средняя обжарка', notes: 'карамель · красное яблоко · какао', price: 4500, img: 'https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=300&q=80' },
+    { id: 'nyeri', name: 'Kenya Nyeri AA', meta: 'Washed · светлая обжарка', notes: 'чёрная смородина · грейпфрут', price: 5400, img: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=300&q=80' },
+    { id: 'cerrado', name: 'Brazil Cerrado', meta: 'Natural · тёмная обжарка', notes: 'какао · фундук · тростниковый сахар', price: 3900, img: 'https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=300&q=80' }
+  ];
+
+  function renderBeans() {
+    var list = $('#beanList');
+    if (!list) return;
+    list.innerHTML = BEANS.map(function (b, i) {
+      return '<li class="group"><div class="flex items-center gap-4 py-5 transition-colors duration-500 group-hover:bg-white/[.03] sm:gap-6">' +
+        '<img class="h-14 w-14 shrink-0 rounded-full object-cover grayscale transition duration-700 group-hover:grayscale-0 sm:h-16 sm:w-16" src="' + b.img + '" alt="' + b.name + '" loading="lazy" />' +
+        '<div class="min-w-0 flex-1">' +
+          '<p class="font-display text-[22px] leading-none">' + b.name + '</p>' +
+          '<p class="mt-1.5 text-[9.5px] uppercase tracking-[.18em] text-cream/35">' + b.meta + '</p>' +
+          '<p class="mt-1 text-[12px] text-cream/55">' + b.notes + '</p>' +
+        '</div>' +
+        '<div class="flex shrink-0 items-center gap-3 sm:gap-5">' +
+          '<span class="tabular text-[13.5px] text-cream/85">' + fmt(b.price) + '</span>' +
+          '<button class="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition duration-300 hover:border-gold hover:bg-gold hover:text-ink" data-add-bean="' + b.id + '" aria-label="Добавить ' + b.name + ' в корзину">' +
+            '<svg class="h-4 w-4"><use href="#i-plus"/></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div></li>';
+    }).join('');
+  }
+
+  /* ================= корзина ================= */
+  var cartItems = [];
+  try { cartItems = JSON.parse(localStorage.getItem('qara-cart') || '[]') || []; } catch (e) { cartItems = []; }
+
+  function saveCart() { try { localStorage.setItem('qara-cart', JSON.stringify(cartItems)); } catch (e) {} }
+  function cartTotal() { return cartItems.reduce(function (s, i) { return s + i.price * i.qty; }, 0); }
+  function cartQty() { return cartItems.reduce(function (s, i) { return s + i.qty; }, 0); }
+
+  function updateBadge() {
+    var badge = $('#cartBadge');
+    var q = cartQty();
+    badge.textContent = q;
+    badge.classList.toggle('is-on', q > 0);
+  }
+
+  function renderCart() {
+    var body = $('#cartBody');
+    var foot = $('#cartFoot');
+    $('#cartCountLabel').textContent = cartQty() + ' ' + (cartQty() === 1 ? 'позиция' : (cartQty() >= 2 && cartQty() <= 4) ? 'позиции' : 'позиций');
+    updateBadge();
+
+    if (!cartItems.length) {
+      body.innerHTML = '<div class="flex h-full flex-col items-center justify-center py-20 text-center">' +
+        '<div class="grid h-14 w-14 place-items-center rounded-full border border-ink/15 text-ink/40"><svg class="h-6 w-6"><use href="#i-bag"/></svg></div>' +
+        '<p class="mt-5 font-display text-[22px]">Пока пусто</p>' +
+        '<p class="mt-2 max-w-[220px] text-[12px] leading-relaxed text-ink/45">Добавьте зерно — обжарим в среду и отправим в тот же день.</p>' +
+        '<button id="goShop" class="btn btn-dark btn-sm mt-6">К зерну</button>' +
+      '</div>';
+      foot.innerHTML = '';
+      return;
+    }
+
+    body.innerHTML = cartItems.map(function (i) {
+      return '<div class="cart-item">' +
+        '<img class="h-16 w-16 shrink-0 rounded-full object-cover" src="' + i.img + '" alt="' + i.name + '" />' +
+        '<div class="min-w-0 flex-1">' +
+          '<p class="text-[13px] font-medium">' + i.name + '</p>' +
+          '<p class="mt-0.5 text-[10.5px] uppercase tracking-[.14em] text-ink/35">250 г · ' + i.meta + '</p>' +
+          '<div class="mt-2.5 flex items-center gap-3">' +
+            '<div class="qty">' +
+              '<button data-dec="' + i.id + '" aria-label="Уменьшить"><svg class="h-3 w-3"><use href="#i-minus"/></svg></button>' +
+              '<span class="w-6 text-center text-[11.5px] tabular">' + i.qty + '</span>' +
+              '<button data-inc="' + i.id + '" aria-label="Увеличить"><svg class="h-3 w-3"><use href="#i-plus"/></svg></button>' +
+            '</div>' +
+            '<button data-remove="' + i.id + '" class="text-[10.5px] text-ink/35 transition hover:text-clay">Удалить</button>' +
+          '</div>' +
+        '</div>' +
+        '<p class="tabular text-[13px] font-medium">' + fmt(i.price * i.qty) + '</p>' +
+      '</div>';
+    }).join('');
+
+    foot.innerHTML = '<div class="space-y-2 text-[12.5px]">' +
+        '<div class="flex justify-between text-ink/50"><span>Зёрна</span><span class="tabular">' + fmt(cartTotal()) + '</span></div>' +
+        '<div class="flex justify-between text-ink/50"><span>Доставка</span><span>Бесплатно от 15 000 ₸</span></div>' +
+        '<div class="mt-3 flex justify-between border-t border-ink/10 pt-3 text-[15px] font-medium"><span>Итого</span><span class="tabular">' + fmt(cartTotal()) + '</span></div>' +
+      '</div>' +
+      '<button id="checkout" class="btn btn-dark mt-4 w-full">Оформить заказ</button>' +
+      '<p class="mt-3 text-center text-[10px] text-ink/35">Оплата при получении · обжарка в ближайшую среду</p>';
+  }
+
+  function addBean(id) {
+    var bean = null;
+    for (var i = 0; i < BEANS.length; i++) if (BEANS[i].id === id) bean = BEANS[i];
+    if (!bean) return;
+    var found = null;
+    for (var j = 0; j < cartItems.length; j++) if (cartItems[j].id === id) found = cartItems[j];
+    if (found) found.qty += 1;
+    else cartItems.push({ id: bean.id, name: bean.name, meta: bean.meta, price: bean.price, img: bean.img, qty: 1 });
+    saveCart();
+    renderCart();
+    toast(bean.name + ' — в корзине');
+  }
+
+  function openCart() {
+    renderCart();
+    $('#cart').classList.add('is-open');
+    $('#cart').setAttribute('aria-hidden', 'false');
+    $('#scrim').classList.add('is-open');
+    document.body.classList.add('is-locked');
+  }
+  function closeCart() {
+    $('#cart').classList.remove('is-open');
+    $('#cart').setAttribute('aria-hidden', 'true');
+    $('#scrim').classList.remove('is-open');
+    document.body.classList.remove('is-locked');
+  }
+
+  /* ================= тосты ================= */
+  function toast(text) {
+    var host = $('#toasts');
+    var el = document.createElement('div');
+    el.className = 'toast';
+    el.innerHTML = '<span class="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-gold/20 text-gold"><svg class="h-3 w-3"><use href="#i-check"/></svg></span><span>' + text + '</span>';
+    host.appendChild(el);
+    setTimeout(function () {
+      el.style.transition = 'opacity .35s ease, transform .35s ease';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(8px)';
+      setTimeout(function () { el.remove(); }, 360);
+    }, 2800);
+  }
+
+  /* ================= бронирование ================= */
+  var booking = $('#booking');
+  var bookingForm = $('#bookingForm');
+  var bookingSuccess = $('#bookingSuccess');
+
+  function openBooking() {
+    booking.classList.add('is-open');
+    document.body.classList.add('is-locked');
+    bookingSuccess.classList.add('hidden');
+    bookingForm.classList.remove('hidden');
+    setMinDate();
+    setTimeout(function () { $('#bkName').focus(); }, 300);
+  }
+  function closeBooking() {
+    booking.classList.remove('is-open');
+    document.body.classList.remove('is-locked');
+  }
+  function setMinDate() {
+    var d = new Date();
+    var iso = d.toISOString().split('T')[0];
+    var input = $('#bkDate');
+    if (input && !input.min) { input.min = iso; input.value = iso; }
+  }
+
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = $('#bkName').value.trim();
+      var phone = $('#bkPhone').value.trim();
+      var error = $('#bookingError');
+
+      if (name.length < 2) { error.textContent = 'Напишите, как к вам обращаться.'; error.classList.remove('hidden'); $('#bkName').focus(); return; }
+      if (phone.replace(/\D/g, '').length < 10) { error.textContent = 'Проверьте номер телефона.'; error.classList.remove('hidden'); $('#bkPhone').focus(); return; }
+      error.classList.add('hidden');
+
+      var date = $('#bkDate').value;
+      var time = $('#bkTime').value;
+      var guests = $('#bkGuests').value;
+      var nice = date ? new Date(date + 'T12:00:00').toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) : '';
+
+      $('#bookingSummary').textContent = name + ', ждём вас ' + nice + ' в ' + time + ' · гостей: ' + guests;
+      bookingForm.classList.add('hidden');
+      bookingSuccess.classList.remove('hidden');
+      toast('Заявка принята — перезвоним');
+    });
+  }
+
+  /* ================= лайтбокс ================= */
+  function openLightbox(src, caption, alt) {
+    var lb = $('#lightbox');
+    $('#lightboxImg').src = src;
+    $('#lightboxImg').alt = alt || caption || '';
+    $('#lightboxCap').textContent = caption || '';
+    lb.classList.add('is-open');
+    document.body.classList.add('is-locked');
+  }
+  function closeLightbox() {
+    $('#lightbox').classList.remove('is-open');
+    document.body.classList.remove('is-locked');
+    setTimeout(function () { $('#lightboxImg').src = ''; }, 300);
+  }
+
+  /* ================= события ================= */
+  document.addEventListener('click', function (e) {
+    var openBk = e.target.closest('[data-open-booking]');
+    if (openBk) { openBooking(); closeMobileMenu(); return; }
+
+    if (e.target.closest('[data-close-booking]')) { closeBooking(); return; }
+
+    var addBeanBtn = e.target.closest('[data-add-bean]');
+    if (addBeanBtn) { addBean(addBeanBtn.dataset.addBean); return; }
+
+    var inc = e.target.closest('[data-inc]');
+    if (inc) {
+      cartItems.forEach(function (i) { if (i.id === inc.dataset.inc) i.qty += 1; });
+      saveCart(); renderCart(); return;
+    }
+    var dec = e.target.closest('[data-dec]');
+    if (dec) {
+      cartItems.forEach(function (i) { if (i.id === dec.dataset.dec) i.qty = Math.max(0, i.qty - 1); });
+      cartItems = cartItems.filter(function (i) { return i.qty > 0; });
+      saveCart(); renderCart(); return;
+    }
+    var rm = e.target.closest('[data-remove]');
+    if (rm) {
+      cartItems = cartItems.filter(function (i) { return i.id !== rm.dataset.remove; });
+      saveCart(); renderCart(); toast('Убрали из корзины'); return;
+    }
+
+    if (e.target.closest('#goShop')) {
+      closeCart();
+      var shop = $('#shop');
+      if (shop) shop.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      return;
+    }
+
+    if (e.target.closest('#checkout')) {
+      if (!cartItems.length) return;
+      toast('Заказ оформлен — обжарим в среду');
+      cartItems = [];
+      saveCart(); renderCart();
+      setTimeout(closeCart, 500);
+      return;
+    }
+
+    if (e.target.closest('#cartBtn')) { openCart(); return; }
+    if (e.target.closest('#cartClose') || e.target.id === 'scrim') { closeCart(); return; }
+
+    var lb = e.target.closest('[data-lightbox]');
+    if (lb) {
+      var img = lb.querySelector('img');
+      openLightbox(lb.dataset.src, lb.dataset.caption, img ? img.alt : '');
+      return;
+    }
+    if (e.target.closest('#lightboxClose') || e.target.id === 'lightbox') { closeLightbox(); return; }
+  });
+
+  /* меню-оверлей */
+  var mobileMenu = $('#mobileMenu');
+  function openMobileMenu() {
+    mobileMenu.classList.add('is-open');
+    $('#burger').setAttribute('aria-expanded', 'true');
+    document.body.classList.add('is-locked');
+    $$('.mobile-link', mobileMenu).forEach(function (a, i) {
+      a.style.transitionDelay = (120 + i * 60) + 'ms';
+    });
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('is-open');
+    $('#burger').setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('is-locked');
+  }
+  var burger = $('#burger');
+  if (burger) burger.addEventListener('click', openMobileMenu);
+  var closeMenuBtn = $('#closeMenu');
+  if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMobileMenu);
+  $$('.mobile-link').forEach(function (a) { a.addEventListener('click', closeMobileMenu); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if ($('#lightbox').classList.contains('is-open')) { closeLightbox(); return; }
+    if (booking.classList.contains('is-open')) { closeBooking(); return; }
+    if ($('#cart').classList.contains('is-open')) { closeCart(); return; }
+    if (mobileMenu.classList.contains('is-open')) closeMobileMenu();
+  });
+
+  /* newsletter */
+  var news = $('#newsletter');
+  if (news) {
+    news.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = $('#newsletterEmail').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast('Проверьте адрес почты');
+        $('#newsletterEmail').focus();
+        return;
+      }
+      $('#newsletterEmail').value = '';
+      toast('Подписались — письмо придёт перед следующей обжаркой');
+    });
+  }
+
+  /* шапка */
+  var header = $('#siteHeader');
+  function onHeaderScroll() {
+    header.classList.toggle('is-stuck', window.scrollY > 24);
+  }
+  window.addEventListener('scroll', onHeaderScroll, { passive: true });
+  onHeaderScroll();
+
+  /* reveal */
+  var revealEls = $$('[data-reveal]');
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    var imgReveals = $$('.img-reveal');
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io2.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    imgReveals.forEach(function (el) { io2.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+    $$('.img-reveal').forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  /* параллакс */
+  var parallaxEls = $$('[data-parallax]');
+  var ticking = false;
+  function parallax() {
+    var vh = window.innerHeight;
+    parallaxEls.forEach(function (wrapper) {
+      var rect = wrapper.getBoundingClientRect();
+      if (rect.bottom < -120 || rect.top > vh + 120) return;
+      var speed = parseFloat(wrapper.dataset.parallax) || 40;
+      var progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      var img = wrapper.querySelector('img');
+      if (img) img.style.transform = 'translate3d(0,' + (progress * speed).toFixed(1) + 'px,0)';
+    });
+  }
+  if (!reduced && parallaxEls.length) {
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { parallax(); ticking = false; });
+    }, { passive: true });
+    window.addEventListener('resize', parallax);
+    parallax();
+  }
+
+  /* изображения: мягкий фолбэк */
+  $$('img').forEach(function (img) {
+    img.addEventListener('error', function () { img.classList.add('img-missing'); });
+  });
+
+  /* ================= старт ================= */
+  renderMenu('espresso');
+  renderBeans();
+  renderCart();
+  updateBadge();
+})();
+</script>
+</body>
+</html>
